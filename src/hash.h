@@ -15,8 +15,10 @@ hashtable_t *hopen(uint32_t hsize);
 /* hclose -- closes a hash table */
 void hclose(hashtable_t *htp);
 
-/* hput -- puts an entry into a hash table under designated key */
-void hput(hashtable_t *htp, void *ep, const char *key, int keylen);
+/* hput -- puts an entry into a hash table under designated key 
+ * returns 0 for success; non-zero otherwise
+ */
+int32_t hput(hashtable_t *htp, void *ep, const char *key, int keylen);
 
 /* happly -- applies a function to every entry in hash table */
 void happly(hashtable_t *htp, void (*fn)(void* ep));
