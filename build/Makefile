@@ -42,9 +42,7 @@ gcov:			tqueue thash
 					gcov hash.c
 					gcov queue.c
 
-# performance analysis target
-# usage: make gprof XFLAGS=-pg
-gprof:		clean tqueue thash
+gprof:		tqueue thash
 					runtest.sh "thash 10000"
 					gprof --brief thash gmon.out > gprof.analysis
 
