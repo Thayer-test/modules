@@ -8,6 +8,13 @@
 \#*\#
 .\#*
 
-# Debugging Symbols
+# Debugging and profiling Symbols 
 *.dSYM
+*.gcda
+*.gcno
+*.gcov
+gmon.out
+gprof.analysis
 
+# test binaries
+thash tqueue 
