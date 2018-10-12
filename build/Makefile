@@ -1,25 +1,25 @@
 # make [ tests | grind | gcov | gprof XFLAGS=-pg | clean ]
 CC=gcc
-SRC=../src
-TEST=../test
-CFLAGS=-Wall -pedantic -std=c11 -I$(SRC) -I$(TEST)
-# extra flags used for debugging or overwritten for profiling 
+SRCDIR=../src
+TSTDIR=../test
+CFLAGS=-Wall -pedantic -std=c11 -I$(SRCDIR) -I$(TSTDIR)
+# extra flags used for debugging, valgrind, and coverage (overwritten for profiling or production)
 XFLAGS=-g --coverage
 
 all:			tqueue thash
 
 # build the modules
-%.o:			$(SRC)/%.c $(SRC)/%.h
+%.o:			$(SRCDIR)/%.c $(SRCDIR)/%.h
 					$(CC) $(CFLAGS) $(XFLAGS)  -c $<
 
 # build the tests
-tutils.o:	$(TEST)/tutils.c $(TEST)/tutils.h
+tutils.o:	$(TSTDIR)/tutils.c $(TSTDIR)/tutils.h
 					$(CC) $(CFLAGS) $(XFLAGS)  -c $<
 
-tqueue.o:	$(TEST)/tqueue.c
+tqueue.o:	$(TSTDIR)/tqueue.c
 					$(CC) $(CFLAGS) $(XFLAGS)  -c $<
 
-thash.o:	$(TEST)/thash.c
+thash.o:	$(TSTDIR)/thash.c
 					$(CC) $(CFLAGS) $(XFLAGS)  -c $<
 
 tqueue:		queue.o tutils.o tqueue.o
@@ -47,6 +47,6 @@ gprof:		tqueue thash
 					gprof --brief thash gmon.out > gprof.analysis
 
 clean:
-					rm -f *.o thash tqueue *.gcda *.gcno *.gcov gmon.out gprof.analysis
+					rm -f *.o thash tqueue *.gcda *.gcno *.gcov gmon.out 
 
 
